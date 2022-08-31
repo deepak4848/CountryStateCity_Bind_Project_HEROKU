@@ -1,0 +1,158 @@
+﻿@model CountryStateCity_Bind_Project.Models.TblUserCollection
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @Html.HiddenFor(x=>x.User_Id)
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="User_Name" class="control-label"></label>
+                <input asp-for="User_Name" class="form-control" />
+                <span asp-validation-for="User_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User_Country" class="control-label"></label>
+              <select asp-for="User_Country" class="form-control" asp-items="@(new SelectList(ViewBag.Ctr,"CId","CName"))" onchange="BindState()">
+                    <option value="0">--Select--</option>
+                </select>
+                <span asp-validation-for="User_Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User_State" class="control-label"></label>
+               <select asp-for="User_State" class="form-control" asp-items="@(new SelectList(ViewBag.Str,"SId","SName"))" onchange="BindCity()">
+                    <option value="0">--Select--</option>
+                </select>
+                <span asp-validation-for="User_State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User_City" class="control-label"></label>
+                <select asp-for="User_City" class="form-control"  asp-items="@(new SelectList(ViewBag.bbt,"DId","DName"))">
+                    <option value="0">---Select----</option>
+                </select>
+                <span asp-validation-for="User_City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="@ViewBag.BT" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Show">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>  
+<script type="text/javascript">
+function BindState()
+{ 
+    if($("#User_Id").val()>0)
+    {
+        debugger;
+        $.ajax({
+        url: '../GetState',
+        type: 'post',
+        data: { A:$("#User_Country").val() },
+        success: function (data) {
+            //data: JSON.parse(data);
+            
+            $("#User_State").empty();
+            $("#User_State").append($('<option></option>').html("--select--").val(0));
+
+            for (var i = 0; i < data.length; i++) {
+                $("#User_State").append($('<option></option>').html(data[i].sName).val(data[i].sId));
+            }
+        },
+        error: function() {
+            alert('not bind!!');
+        }
+    });
+    }
+    else
+    {
+         debugger;
+        $.ajax({
+        url: '../Admin/GetState',
+        type: 'post',
+        data: { A:$("#User_Country").val() },
+        success: function (data) {
+            //data: JSON.parse(data);
+            debugger;
+            $("#User_State").empty();
+            $("#User_State").append($('<option></option>').html("--select--").val(0));
+
+            for (var i = 0; i < data.length; i++) {
+                $("#User_State").append($('<option></option>').html(data[i].sName).val(data[i].sId));
+            }
+        },
+        error: function() {
+            alert('not bind!!');
+        }
+    });
+    }
+}
+
+
+function BindCity() {
+    if($("#User_Id").val()>0)
+    {
+         debugger;
+        $.ajax({
+        url: '../GetCity',
+        type: 'post',
+        data: { A:$("#User_State").val() },
+        success: function (data) {
+            //data: JSON.parse(data);
+            debugger;
+            $("#User_City").empty();
+            $("#User_City").append($('<option></option>').html("--select--").val(0));
+
+            for (var i = 0; i < data.length; i++) {
+                $("#User_City").append($('<option></option>').html(data[i].dName).val(data[i].dId));
+            }
+        },
+        error: function() {
+            alert('not bind!!');
+        }
+    });
+    }
+    else
+    {
+        $.ajax({
+        url: '../Admin/GetCity',
+        type: 'post',
+        data: { A:$("#User_State").val() },
+        success: function (data) {
+            //data: JSON.parse(data);
+            debugger;
+            $("#User_City").empty();
+            $("#User_City").append($('<option></option>').html("--select--").val(0));
+
+            for (var i = 0; i < data.length; i++) {
+                $("#User_City").append($('<option></option>').html(data[i].dName).val(data[i].dId));
+            }
+        },
+        error: function() {
+            alert('not bind!!');
+        }
+    });
+    }
+    }
+    
+
+</script>
+
+

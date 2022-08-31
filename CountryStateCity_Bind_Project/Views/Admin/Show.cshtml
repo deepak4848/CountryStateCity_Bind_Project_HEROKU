@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CountryStateCity_Bind_Project.Models.UserJoin>
+
+@{
+    ViewData["Title"] = "Show";
+}
+
+<h1>Show</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User_Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User_State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User_City)
+            </th>
+            <th>Action:</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User_Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User_State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User_City)
+            </td>
+            <td>
+                <a asp-action="Create" asp-route-id="@item.User_Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.User_Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.User_Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

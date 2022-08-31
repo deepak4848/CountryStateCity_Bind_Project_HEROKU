@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<style>
+.mySlides {display:none;}
+</style>
+
+<body>
+
+<h2 class="w3-center">Automatic Slideshow</h2>
+
+<div class="w3-content w3-section" style="max-width:500px">
+  <img class="mySlides" src="~/Image/Pic1.jpg" style="width:80%">
+  <img class="mySlides" src="~/Image/Pic2.jpg" style="width:80%">
+  <img class="mySlides" src="~/Image/Pic3.jpg" style="width:80%">
+  @*<img class="mySlides" src="https://media.istockphoto.com/photos/questionnaire-with-checkboxes-filling-survey-form-online-answer-picture-id1398473177?b=1&k=20&m=1398473177&s=170667a&w=0&h=tA1KW9n6V4JiTfTWJ7l3viB7eqeY08HvfOzjJdu2bn4=
+" style="width:100%">
+  <img class="mySlides" src="https://media.istockphoto.com/photos/paperless-workplace-idea-esigning-electronic-signature-document-an-picture-id1349390515?b=1&k=20&m=1349390515&s=170667a&w=0&h=d9eagqJMGdGExzPlpxp1UdhHi23NJTubYzKB4zPTs_s=" style="width:100%">
+  <img class="mySlides" src="https://media.istockphoto.com/photos/global-connection-picture-id1335295270?b=1&k=20&m=1335295270&s=170667a&w=0&h=PNF6QH5FyD_XvDbn4nHtIVKdmmlN86fCHTgwvkZYvHA=" style="width:100%">
+   <img class="mySlides" src="https://media.istockphoto.com/photos/customer-feedbackexperiencereview-concept-picture-id1367616995?b=1&k=20&m=1367616995&s=170667a&w=0&h=o8FEb5uGg3E0m8CuiPI8mQKsyzE-U1eWEsG2fFORa_A=" style="width:100%">*@
+</div>
+
+<script>
+var myIndex = 0;
+carousel();
+
+function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  myIndex++;
+  if (myIndex > x.length) {myIndex = 1}    
+  x[myIndex-1].style.display = "block";  
+  setTimeout(carousel, 1000); // Change image every 2 seconds
+}
+</script>
+
+</body>
+</html>
